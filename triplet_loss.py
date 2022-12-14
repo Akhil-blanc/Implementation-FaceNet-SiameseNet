@@ -23,7 +23,7 @@ class TripletLoss(nn.Module):
         distance_positive =  distance_matrix.unsqueeze(2)
         distance_negative = distance_matrix.unsqueeze(1)
         triplet_loss = distance_positive - distance_negative + self.margin
-        triplet_loss=torch.where(distance_positive<distance_negative,losses,0)
+        triplet_loss=torch.where(distance_positive<distance_negative,triplet_loss,0)
         mask = get_triplet_mask(labels)
         triplet_loss *= mask
         triplet_loss = F.relu(triplet_loss)
