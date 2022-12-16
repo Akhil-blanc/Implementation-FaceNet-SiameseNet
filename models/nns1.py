@@ -5,9 +5,9 @@ from torchvision import transforms
 from layers import *
 import numpy as np
 
-class nn2(nn.Module):
+class nns1(nn.Module):
     def __init__(self, in_channels=3, num_classes=1000):
-        super(nn2, self).__init__()
+        super(nns1, self).__init__()
         
         self.conv1 = conv_block(in_channels = in_channels, out_channels = 64, kernel_size = 7, stride = 2, padding = 3)
         
@@ -72,7 +72,7 @@ class nn2(nn.Module):
 if __name__== '__main__':
     # for i in range(0, 1000):
     x = torch.randn(1, 3, 165, 165)
-    model = nn2()
+    model = nns1()
     print(model(x).shape)
     print(model(x))
     # print(i)
