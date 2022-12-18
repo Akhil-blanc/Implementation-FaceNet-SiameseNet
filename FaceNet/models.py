@@ -121,7 +121,7 @@ class nn2(nn.Module):
         x=self.avgpool1(x)
         print(x.shape)
         
-        x=self.fc1(torch.flatten(x))
+        x=self.fc1(torch.flatten(x, start_dim=1))
         
         x=F.normalize(x, dim=0) #L2 normalization
         
@@ -184,7 +184,7 @@ class nn3(nn.Module):
         
         x=self.avgpool1(x)
         
-        x=self.fc1(torch.flatten(x))
+        x=self.fc1(torch.flatten(x, start_dim=1))
         
         x=F.normalize(x, dim=0) #L2 normalization
         
@@ -247,7 +247,7 @@ class nn4(nn.Module):
         
         x=self.avgpool1(x)
         
-        x=self.fc1(torch.flatten(x))
+        x=self.fc1(torch.flatten(x, start_dim=1))
         
         x=F.normalize(x, dim=0) #L2 normalization
         
@@ -304,7 +304,7 @@ class nns1(nn.Module):
         
         x=self.avgpool1(x)
         
-        x=self.fc1(torch.flatten(x))
+        x=self.fc1(torch.flatten(x, start_dim=1))
         
         x=F.normalize(x, dim=0) #L2 normalization
         return x
