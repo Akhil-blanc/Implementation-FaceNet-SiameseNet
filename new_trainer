@@ -1,5 +1,7 @@
 train_data = torchvision.datasets.CelebA(root = "/content", split = "train",target_type='identity', download = True, transform = transforms.Compose([transforms.Resize((220, 220)), transforms.PILToTensor(), transforms.ConvertImageDtype(dtype = torch.float32)]))
+
 test_data = torchvision.datasets.CelebA(root = "/content", split = "valid",target_type='identity', download = True, transform = transforms.Compose([transforms.Resize((220, 220)), transforms.PILToTensor(), transforms.ConvertImageDtype(dtype = torch.float32)]))
+
 train_batch_sampler = BalancedBatchSampler(train_data, n_classes=10, n_samples=25)
 test_batch_sampler = BalancedBatchSampler(test_data, n_classes=10, n_samples=25)
 

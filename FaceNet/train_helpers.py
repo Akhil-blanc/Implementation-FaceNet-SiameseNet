@@ -1,8 +1,11 @@
+from loss import *
+from helpers import *
+
 import torch
 import numpy as np
 
 
-def fit(train_loader, val_loader, model,  optimizer, scheduler, n_epochs, cuda, log_interval, metrics=[],
+def fit(train_loader, val_loader, model,  optimizer, scheduler, n_epochs, cuda, log_interval,
         start_epoch=0):
     """
     Loaders, model, loss function and metrics should work together for a given task,
@@ -20,13 +23,11 @@ def fit(train_loader, val_loader, model,  optimizer, scheduler, n_epochs, cuda, 
         scheduler.step()
 
         # Train stage
-        train_loss, metrics = train_epoch(train_loader, model,  optimizer, cuda, log_interval, metrics)
+        train_loss = train_epoch(train_loader, model,  optimizer, cuda, log_interval)
 
         message = 'Epoch: {}/{}. Train set: Average loss: {:.4f}'.format(epoch + 1, n_epochs, train_loss)
-        for metric in metrics:
-            message += '\t{}: {}'.format(metric.name(), metric.value())
 
-        accuracy,fa_rate, metrics = test_epoch(val_loader, model, cuda, metrics)
+        accuracy,fa_rate= test_epoch(val_loader, model, cuda)
         accuracy /= len(val_loader)
         accuracy *=100
         fa_rate /= len(val_loader)
@@ -34,15 +35,11 @@ def fit(train_loader, val_loader, model,  optimizer, scheduler, n_epochs, cuda, 
 
         message += '\nEpoch: {}/{}. Validation set: accuracy: {:.4f} fa_rate={:.4f}'.format(epoch + 1, n_epochs,
                                                                                             accuracy, fa_rate)
-        for metric in metrics:
-            message += '\t{}: {}'.format(metric.name(), metric.value())
 
         print(message)
 
 
-def train_epoch(train_loader, model,  optimizer, cuda, log_interval, metrics):
-    for metric in metrics:
-        metric.reset()
+def train_epoch(train_loader, model,  optimizer, cuda, log_interval):
 
     model.train()
     losses = []
@@ -69,29 +66,21 @@ def train_epoch(train_loader, model,  optimizer, cuda, log_interval, metrics):
         loss.backward()
         optimizer.step()
 
-        for metric in metrics:
-            metric(embeddings, target, loss_outputs)
-
         if batch_idx % log_interval == 0:
             message = 'Train: [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 batch_idx * len(data[0]), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), np.mean(losses))
-            for metric in metrics:
-                message += '\t{}: {}'.format(metric.name(), metric.value())
 
             print(message)
             losses = []
 
     total_loss /= (batch_idx + 1)
-    return total_loss, metrics
+    return total_loss
 
 
-def test_epoch(val_loader, model,  cuda, metrics):
+def test_epoch(val_loader, model,  cuda):
     with torch.no_grad():
-        for metric in metrics:
-            metric.reset()
         model.eval()
-        val_loss = 0
         for batch_idx, (data, target) in enumerate(val_loader):
             target = target if len(target) > 0 else None
             if not type(data) in (tuple, list):
@@ -103,9 +92,7 @@ def test_epoch(val_loader, model,  cuda, metrics):
 
             embeddings = model(*data)
 
-            loss_outputs = batch_hard_triplet_loss(target,embeddings,0.2)
-
-            pairwise_dist =_pairwise_distances(embeddings)
+            pairwise_dist =pairwise_distances(embeddings)
             labels_equal = target.unsqueeze(0) == target.unsqueeze(1)
             labels_unequal = target.unsqueeze(0) != target.unsqueeze(1)
             labels_equal = labels_equal.float()
@@ -118,7 +105,5 @@ def test_epoch(val_loader, model,  cuda, metrics):
             false_accept=torch.numel(torch.nonzero(p_diff*accept))
             accuracy=true_accept/torch.numel(torch.nonzero(p_same))
             fa_rate=false_accept/torch.numel(torch.nonzero(p_same))
-            for metric in metrics:
-                metric(embeddings, target, loss_outputs)
 
-    return accuracy,fa_rate,metric
+    return accuracy,fa_rate
