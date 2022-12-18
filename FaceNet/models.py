@@ -119,6 +119,7 @@ class nn2(nn.Module):
         x=self.inception_5b(x)
         
         x=self.avgpool1(x)
+        print(x.shape)
         
         x=self.fc1(torch.flatten(x))
         
