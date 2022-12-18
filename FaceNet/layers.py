@@ -14,17 +14,18 @@ class Inception_block(nn.Module):
         """Inception_block Class constructor to initialize the obect.
 
         Args:
-            in_channels: integer, depth of input map
-            filter_num: tuple, contains depth of output map from layers in the order (out_1x1, red_3x3, out_3x3, red_5x5, out_5x5, out_pool)
-                        give integer '0' in tuple to avoid the respective layer
-            stride_tup: tuple, contains stride value for layers in the order (out_3x3, out_5x5, out_pool)
-                        Default: (1, 1, 1)
-            pad_tup: tuple, contains padding applied in layers in the order (out_3x3, out_5x5, out_pool)
-                    Default: (1, 2, 1)
-            pool_type: string, "max" or "L2" based on pooling preference
-            pool_kernel: integer, kernel size of the pooling layer
+            in_channels (int): depth of input map
+            filter_num (tuple): contains depth of output map from layers in the order (out_1x1, red_3x3, out_3x3, red_5x5, out_5x5, out_pool)
+                                give integer '0' in tuple to avoid the respective layer
+            stride_tup (tuple, optional): contains stride value for layers in the order (out_3x3, out_5x5, out_pool). 
+                                          Defaults to (1, 1, 1).
+            pad_tup (tuple, optional): contains padding applied in layers in the order (out_3x3, out_5x5, out_pool).
+                                       Defaults to (1,2,1).
+            pool_type (string, optional): "max" or "L2" based on pooling preference.
+                                          Defaults to None.
+            pool_kernel (int, optional): kernel size of the pooling layer.
+                                         Defaults to 3.
         """
-    
         super(Inception_block, self).__init__()
         
         #defining variables to be used throughout the class
@@ -84,7 +85,7 @@ class Inception_block(nn.Module):
         """Concatenates the processed layers from the Inception module along their depth.
 
         Args:
-            x: Tensor, 3D HWD input map
+            x (tensor): 3D HWD input map
 
         Returns:
             Tensor: Inception layer processed 3D maps.
@@ -121,8 +122,8 @@ class conv_block(nn.Module):
         """conv_block Class constructor to initialize the obect.
 
         Args:
-            in_channels: integer, depth of input map
-            out_channels: integer, depth of output map
+            in_channels (int): depth of input map
+            out_channels (int): depth of output map
         """
         
         super(conv_block, self).__init__()
@@ -135,7 +136,7 @@ class conv_block(nn.Module):
         """Return the 2D convoluted, batch normalized and activation applied output map from the input map.
 
         Args:
-            x: tensor, 3D HWD input map
+            x (tensor): 3D HWD input map
 
         Returns:
             Tensor: 2D convoluted, batch normalized and activation applied 3D maps.
