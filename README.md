@@ -58,14 +58,9 @@ batch_hard_triplet_loss():Build the triplet loss over a batch of embeddings.For 
 [Pytorch Documentation](https://pytorch.org/docs/stable/index.html)
 
 
-## Lessons Learned
-
-What did you learn while building this project? What challenges did you face and how did you overcome them?
-
-
 ## Optimizations
 
-What optimizations did you make in your code? E.g. refactors, performance improvements, accessibility
+We used Adam algorithm to optimize the Siamese Network model and used the Adagrad algorithm to optimize the Facenet models.
 
 
 ## Acknowledgements
