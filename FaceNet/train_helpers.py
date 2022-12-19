@@ -40,7 +40,9 @@ def fit(train_loader, val_loader, model,  optimizer, scheduler, n_epochs, cuda, 
 
 
 def train_epoch(train_loader, model,  optimizer, cuda, log_interval):
-
+    """"
+    Helper function for training loop
+    """
     model.train()
     losses = []
     total_loss = 0
@@ -79,6 +81,9 @@ def train_epoch(train_loader, model,  optimizer, cuda, log_interval):
 
 
 def test_epoch(val_loader, model,  cuda):
+    """"
+    Helper function for testing loop
+    """
     with torch.no_grad():
         model.eval()
         accuracy = 0
