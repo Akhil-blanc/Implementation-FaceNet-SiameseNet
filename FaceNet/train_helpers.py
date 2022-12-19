@@ -86,6 +86,8 @@ def test_epoch(val_loader, model,  cuda):
     """
     with torch.no_grad():
         model.eval()
+        accuracy = 0
+        fa_rate = 0
         for batch_idx, (data, target) in enumerate(val_loader):
             target = target if len(target) > 0 else None
             if not type(data) in (tuple, list):
@@ -108,7 +110,7 @@ def test_epoch(val_loader, model,  cuda):
             accept=torch.where(pairwise_dist<0.6,1,0)
             true_accept=torch.numel(torch.nonzero(p_same*accept))
             false_accept=torch.numel(torch.nonzero(p_diff*accept))
-            accuracy=true_accept/torch.numel(torch.nonzero(p_same))
-            fa_rate=false_accept/torch.numel(torch.nonzero(p_same))
+            accuracy+=true_accept/torch.numel(torch.nonzero(p_same))
+            fa_rate+=false_accept/torch.numel(torch.nonzero(p_same))
 
     return accuracy,fa_rate

@@ -67,8 +67,8 @@ def train_all():
         print("Creating samples...")
         print()
         
-        train_batch_sampler = BalancedBatchSampler(train_data, n_classes=5, n_samples=10)
-        test_batch_sampler = BalancedBatchSampler(test_data, n_classes=5, n_samples=10)
+        train_batch_sampler = BalancedBatchSampler(train_data, n_classes=5, n_samples=5)
+        test_batch_sampler = BalancedBatchSampler(test_data, n_classes=5, n_samples=5)
 
         print("Created samples...")
         print()
@@ -85,7 +85,7 @@ def train_all():
 
         optimizer = optim.Adagrad(model.parameters(), lr = 0.003 )
         scheduler = lr_scheduler.StepLR(optimizer, 8, gamma=0.1, last_epoch=-1)
-        n_epochs = 20
+        n_epochs = 1
         log_interval = 5
 
         fit(train_loader, test_loader, model, optimizer, scheduler, n_epochs, cuda, log_interval)
@@ -93,6 +93,8 @@ def train_all():
         summary(model,(3,pix_size[i][0],pix_size[i][1]))
                 
         torch.save(model.state_dict(), "FaceNet/saved_models/" + i + ".pkl")
+        
+        input_yn = input("Continue Signal")
 
 train_all()
 
