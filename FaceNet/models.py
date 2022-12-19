@@ -57,6 +57,7 @@ class nn2(nn.Module):
                                          Defaults to 3.
             num_classes (int, optional): number of individual classes(faces). Defaults to 1000.
         """
+        
         super(nn2, self).__init__()
         
         self.conv1 = conv_block(in_channels = in_channels, out_channels = 64, kernel_size = 7, stride = 2, padding = 3)
@@ -95,6 +96,7 @@ class nn2(nn.Module):
         Returns:
             array: an embedding of size 128
         """
+        
         x=self.conv1(x)
         
         x=self.maxpool1(x)
@@ -128,7 +130,18 @@ class nn2(nn.Module):
         return x
     
 class nn3(nn.Module):
+    """nn2 Class is used to create an Inception network object with the architecture of NN2 (inception_224x224) given in "FaceNet". It takes as input a RGB image of size 224x224x3.
+    
+    """
     def __init__(self, in_channels=3, num_classes=1000):
+        """nn3 Class constructor to initialize the obect.
+
+        Args:
+            in_channels (int, optional): depth of input image. (Must be RGB)
+                                         Defaults to 3.
+            num_classes (int, optional): number of individual classes(faces). Defaults to 1000.
+        """
+        
         super(nn3, self).__init__()
         
         self.conv1 = conv_block(in_channels = in_channels, out_channels = 64, kernel_size = 7, stride = 2, padding = 3)
@@ -159,6 +172,14 @@ class nn3(nn.Module):
         self.fc1 = nn.Linear(1024, 128)
         
     def forward(self, x):
+        """_summary_
+
+        Args:
+            x (tensor): an input image (RGB) of size 160x160x3
+
+        Returns:
+            array: an embedding of size 128
+        """
         x=self.conv1(x)
         
         x=self.maxpool1(x)
@@ -191,7 +212,18 @@ class nn3(nn.Module):
         return x
 
 class nn4(nn.Module):
+    """nn2 Class is used to create an Inception network object with the architecture of NN2 (inception_224x224) given in "FaceNet". It takes as input a RGB image of size 224x224x3.
+    
+    """
     def __init__(self, in_channels=3, num_classes=1000):
+        """nn2 Class constructor to initialize the obect.
+
+        Args:
+            in_channels (int, optional): depth of input image. (Must be RGB)
+                                         Defaults to 3.
+            num_classes (int, optional): number of individual classes(faces). Defaults to 1000.
+        """
+        
         super(nn4, self).__init__()
         
         self.conv1 = conv_block(in_channels = in_channels, out_channels = 64, kernel_size = 7, stride = 2, padding = 3)
@@ -222,6 +254,14 @@ class nn4(nn.Module):
         self.fc1 = nn.Linear(896, 128)
         
     def forward(self, x):
+        """_summary_
+
+        Args:
+            x (tensor): an input image (RGB) of size 94x94x3
+
+        Returns:
+            array: an embedding of size 128
+        """
         x=self.conv1(x)
         
         x=self.maxpool1(x)
@@ -254,7 +294,18 @@ class nn4(nn.Module):
         return x
 
 class nns1(nn.Module):
+    """nn2 Class is used to create an Inception network object with the architecture of NN2 (inception_224x224) given in "FaceNet". It takes as input a RGB image of size 224x224x3.
+    
+    """
     def __init__(self, in_channels=3, num_classes=1000):
+        """nn2 Class constructor to initialize the obect.
+
+        Args:
+            in_channels (int, optional): depth of input image. (Must be RGB)
+                                         Defaults to 3.
+            num_classes (int, optional): number of individual classes(faces). Defaults to 1000.
+        """
+        
         super(nns1, self).__init__()
         
         self.conv1 = conv_block(in_channels = in_channels, out_channels = 64, kernel_size = 7, stride = 2, padding = 3)
@@ -282,6 +333,14 @@ class nns1(nn.Module):
         self.fc1 = nn.Linear(736, 128)
        
     def forward(self, x):
+        """_summary_
+
+        Args:
+            x (tensor): an input image (RGB) of size 165x165x3
+
+        Returns:
+            array: an embedding of size 128
+        """
         x=self.conv1(x)
         
         x=self.maxpool1(x)
