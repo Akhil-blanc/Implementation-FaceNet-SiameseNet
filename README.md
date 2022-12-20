@@ -22,13 +22,13 @@ The second part involves the implementation of standard siamese network on same 
 
 **layers.py**: It contains following two classes:
 
-   **Inception_block()**:Inception_block Class is used to create an Inception module object similar to the Inception module described in the Fig 2(b) of "Going Deeper     with Convolutions" paper.
+   **Inception_block()**:Inception_block Class is used to create an Inception Module object similar to the Inception module described in the Fig 2(b) of "Going Deeper     with Convolutions" paper.
         
     The two major differences are:
         1. There is an option to choose which layers to apply from the four layers generally used.
         2. Pooling can be chosen to be "Max Pool" or "L2 Pool", and also dimensionality reduction can be applied if needed
 
-  **conv_block()**:conv_block Class is used to create a 2D Convolution layer with batch normalization object.After applying 2D Convolution, batch normalization and        ReLU activation has been applied.
+  **conv_block()**:conv_block Class is used to create a 2-D Convolution layer with batch normalization object.After applying 2-D Convolution, batch normalization and        ReLU activation has been applied.
 
 **loss.py**:
 batch_hard_triplet_loss():Build the triplet loss over a batch of embeddings.For each anchor, we get the hardest positive and hardest negative to form a triplet.
