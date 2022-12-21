@@ -77,7 +77,7 @@ We used Adam algorithm to optimize the Siamese Network model and used the Adagra
 - [Shubh](https://github.com/Shubh-Goyal-07)
 - [Sukriti](https://github.com/s-goyal23)
 - [Rushi](https://github.com/shahrushi2003)
-- [ritik](https://github.com/testgithubtiwari)
+- [Ritik](https://github.com/testgithubtiwari)
 - [Ameen](https://github.com/AmeenRizvi)
 
 
