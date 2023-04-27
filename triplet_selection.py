@@ -73,3 +73,4 @@ def get_triplet_mask(labels):
   mask = torch.logical_and(distinct_indices, valid_indices)
 
   return mask
+
